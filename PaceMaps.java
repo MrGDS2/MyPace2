@@ -2,6 +2,8 @@ package university.pace.mypace2;
 
 import android.*;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Criteria;
@@ -9,9 +11,11 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -43,13 +47,20 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
 
 
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pace_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+
+            setContentView(R.layout.activity_pace_maps);
+            // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
+
+
+
+
+
+
+
     }
 
 
@@ -67,8 +78,8 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
                 .getBestProvider(criteria, false));
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
-       // LatLng NYC=new LatLng(40.746924,-73.856792);
-     // LatLng PLV= new LatLng(43.746729,-73.794852);
+        // LatLng NYC=new LatLng(40.746924,-73.856792);
+        // LatLng PLV= new LatLng(43.746729,-73.794852);
 
 
         // Add a marker in Pleasantville and move the camera
@@ -90,7 +101,7 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
             Log.d("User is North","Showing PLV");
         }
            /*If latitude is less than user latitude user is south  */
-        if(latitude<=Pace_NYC_LAT)
+      else  if(latitude<=Pace_NYC_LAT)
 
         {
 
@@ -101,8 +112,16 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
             Log.d("User is South","Showing NYC");
         }
           /*If latitude is greater than user latitude user is north */
+else
+        {
 
 
+            mMap.addMarker(new MarkerOptions().position(PaceUniPLV).title("861 Bedford Rd, Pleasantville, NY 10570"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(PaceUniPLV, 15));
+
+            Log.d("default","Showing PLV");
+        }
+/*If latitude not there or something- default */
 
 
         /** Premission request to Find current location**/
@@ -157,16 +176,13 @@ public class PaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
 
     /*  public double FindDistance() {
-
     /*Gets user Location
           double latitude = location.getLatitude();
        double longitude = location.getLongitude();
           double lat2 = Pace_PLV_LAT;
           double lon2 = Pace_PLV_LNG;                    /*Gets PLV Location
         double distance = distance(latitude, longitude, lat2, lon2);
-
         double miles=(distance/8 *5) ; //distance in miles
-
         return  (miles* 5280.0 );//distance in feet
     }
     */
@@ -178,15 +194,10 @@ Gets longitude and latitude of both points
         double RadiusofEarth=6371;
         double dlat=deg2rad(lat2-lat1);
         double dlon=deg2rad(lon2-lon1);
-
         double nesscaryMath= Math.sin(dlat/2)*Math.sin(dlat/2)+Math.cos(deg2rad(lat1))*Math.cos(deg2rad(lat2))
                 *Math.sin(dlon/2)*Math.sin(dlon/2);
-
         double calculation=2 * Math.atan2(Math.sqrt(nesscaryMath),Math.sqrt(1-nesscaryMath));
         double dist=RadiusofEarth*calculation;  //Distance in km
-
-
-
         return (dist);
     } */
 
@@ -196,14 +207,14 @@ Gets longitude and latitude of both points
         return (deg * Math.PI / 180.0);
     }
 private  LatLng getUserLocation(){
-    
+
     LatLng UserLocation;
     double latitude = location.getLatitude();
      double longitude = location.getLongitude();
     LatLng userLatLng= new LatLng(latitude,longitude);
-    
+
     UserLocation=userLatLng;
-    
+
     return UserLocation;
 }
     */
@@ -212,14 +223,9 @@ private  LatLng getUserLocation(){
     {   try {
         Toast.makeText(getApplicationContext(), "You are " + ((int) FindDistance()) + " Miles Away From Bread Of Life", Toast.LENGTH_LONG).show();
     }
-
     catch (Exception nd)
     {
-
-
     }
-
-
     }
 */
 }
