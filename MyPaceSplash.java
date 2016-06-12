@@ -16,8 +16,6 @@ public class MyPaceSplash extends AppCompatActivity {
         @Override
         public void onCreate(Bundle Mypace2Begin) {
             super.onCreate( Mypace2Begin);
-            //   TwitterAuthConfig authConfig = new TwitterAuthConfig(CONSTANTS.TWITTER_KEY, CONSTANTS.TWITTER_SECRET);
-            // Fabric.with(this, new Twitter(authConfig));
 
             setContentView(R.layout.my_pace_splash);
 
@@ -30,7 +28,7 @@ public class MyPaceSplash extends AppCompatActivity {
                     Intent mainIntent = new Intent(MyPaceSplash.this, MainActivity.class); //Takes to Main Need2Feed Screen
                     MyPaceSplash.this.startActivity(mainIntent);
                     MyPaceSplash.this.finish();
-                  //  overridePendingTransition(R.anim.mainfadein,R.anim.mainfadeout);
+                  overridePendingTransition(R.anim.mainfadein,R.anim.mainfadeout);
                 }
             }, SPLASH_DISPLAY_LENGTH);
         }
